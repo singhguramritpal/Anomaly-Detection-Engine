@@ -41,7 +41,7 @@ public class DetectionController {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
 
-		HashMap<String,Integer> map = new HashMap<>();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip)) && obj.get("outcome").equals("Failure")){
