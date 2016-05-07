@@ -449,7 +449,7 @@ public class DetectionController {
     public HashMap<String,String> registerUser(@RequestBody User user) throws UnknownHostException{
     	
 		System.out.println(user.toString());
-    	HashMap<String,String> map = new HashMap<>();
+    	HashMap<String,String> map = new HashMap<String, String>();
     	map.put("name", user.getName());
     	map.put("email", user.getEmail().toString());
     	map.put("phoneNumber", user.getPhoneNumber());
