@@ -41,7 +41,7 @@ public class DetectionController {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
 
-		HashMap<String,Integer> map = new HashMap<>();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip)) && obj.get("outcome").equals("Failure")){
@@ -66,7 +66,7 @@ public class DetectionController {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
 
-		HashMap<String,Integer> map = new HashMap<>();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
 
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
@@ -90,7 +90,7 @@ public class DetectionController {
 	public HashMap<String,Integer> ports(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
-		HashMap<String,Integer> map = new HashMap<>();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip))){
@@ -110,7 +110,7 @@ public class DetectionController {
 	public HashMap<String,Integer> sourcePorts(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
-		HashMap<String,Integer> map = new HashMap<>();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip))){
@@ -131,7 +131,7 @@ public class DetectionController {
 	public HashMap<String,Integer> sources(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
-		HashMap<String,Integer> map = new HashMap<>();
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip)) && obj.get("outcome").equals("Success")){
@@ -152,8 +152,8 @@ public class DetectionController {
 	public HashSet<HashMap<String,String>> acceptedEvents(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
 		
 		DBCursor cursor = new DBConnect().connectToFirewall();
-		HashSet<HashMap<String,String>> set = new HashSet<>();
-		HashMap<String,String> map = new HashMap<>();
+		HashSet<HashMap<String,String>> set = new HashSet<HashMap<String,String>>();
+		HashMap<String,String> map = new HashMap<String,String>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip)) && obj.get("outcome").equals("Success")){
@@ -175,8 +175,8 @@ public class DetectionController {
 	public HashSet<HashMap<String,String>> rejectedEvents(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
-		HashSet<HashMap<String,String>> set = new HashSet<>();
-		HashMap<String,String> map = new HashMap<>();
+		HashSet<HashMap<String,String>> set = new HashSet<HashMap<String,String>>();
+		HashMap<String,String> map = new HashMap<String,String>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("sourceIP").equals(ip)) && obj.get("outcome").equals("Failure")){
@@ -199,9 +199,9 @@ public class DetectionController {
 
 		DBCursor cursor = new DBConnect().connectToAuth();
 		String msg;
-		HashMap<String,Integer> local = new HashMap<>();
-		HashMap<String,Integer> remote = new HashMap<>();
-		List<HashMap<String,Integer>> list = new ArrayList<>();
+		HashMap<String,Integer> local = new HashMap<String,Integer>();
+		HashMap<String,Integer> remote = new HashMap<String,Integer>();
+		List<HashMap<String,Integer>> list = new ArrayList<HashMap<String,Integer>>();
 		DBObject obj;
 
 		while(cursor.hasNext()){
@@ -253,7 +253,7 @@ public class DetectionController {
 
 		DBCursor cursor = new DBConnect().connectToAuth();
 		String msg;
-		HashMap<String,Integer> remote = new HashMap<>();
+		HashMap<String,Integer> remote = new HashMap<String,Integer>();
 		DBObject obj;
 
 		while(cursor.hasNext()){
@@ -358,7 +358,7 @@ public class DetectionController {
 		DBObject obj;
 		String msg;
 		String time;
-		HashMap<String, ArrayList<Integer>> map = new HashMap<>();
+		HashMap<String, ArrayList<Integer>> map = new HashMap<String, ArrayList<Integer>>();
 		while(cursor.hasNext()){
 			obj = cursor.next();
 			msg = obj.get("Message").toString().toLowerCase();
