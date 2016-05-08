@@ -7,8 +7,6 @@ public class User {
 	private String phoneNumber;
 	private String organizationName;
 	private String password;
-	private String question;
-	private String answer;
 	
 	public User(){}
 	
@@ -20,8 +18,6 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.organizationName = organizationName;
 		this.password = password;
-		this.question = question;
-		this.answer = answer;
 	}
 	
 	public String getName() {
@@ -54,18 +50,4 @@ public class User {
 	public void setPassword(String paswword) {
 		this.password = paswword;
 	}
-	public String getQuestion() {
-		return question;
-	}
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-	public String getAnswer() {
-		return answer;
-	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	
 }

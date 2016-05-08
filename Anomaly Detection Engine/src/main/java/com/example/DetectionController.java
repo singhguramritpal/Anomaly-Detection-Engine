@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -449,15 +450,13 @@ public class DetectionController {
     public HashMap<String,String> registerUser(@RequestBody User user) throws UnknownHostException{
     	
 		System.out.println(user.toString());
-    	HashMap<String,String> map = new HashMap<>();
+    	HashMap<String,String> map = new HashMap<String,String>();
     	map.put("name", user.getName());
     	map.put("email", user.getEmail().toString());
     	map.put("phoneNumber", user.getPhoneNumber());
     	map.put("organizationName", user.getOrganizationName());
     	map.put("password", user.getPassword());
-    	map.put("question", user.getQuestion());
-    	map.put("answer", user.getAnswer());
-		
+    	
     	DBConnect dbc = new DBConnect();
     	
     	dbc.connectToUser(map);
@@ -466,5 +465,27 @@ public class DetectionController {
     	
     	return map;
     }
-	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public HashMap<String, String> Login(@RequestBody User user) throws UnknownHostException {
+		
+		String userName=user.getEmail();
+		String password=user.getPassword();
+		
+		System.out.println(userName);
+
+
+		DBCursor cursor = new DBConnect().connectToUser();
+		HashMap<String,String> map = new HashMap<String,String>();
+		while(cursor.hasNext()){
+			DBObject obj = cursor.next();
+			if((obj.get("email").equals(userName)) && obj.get("password").equals(password)){
+				map.put("name", obj.get("name").toString());
+				map.put("email", obj.get("email").toString());
+				map.put("phoneNumber",obj.get("phoneNumber").toString());
+				map.put("organizationName",obj.get("organizationName").toString());
+				return map;
+			}
+		}
+		return map;
+	}
 }

@@ -58,5 +58,16 @@ public class DBConnect {
 		
 		coll.insert(document);
 	}
+	
+	public DBCursor connectToUser() throws UnknownHostException{
+		MongoClient mongoClient = new MongoClient( "52.39.5.137" , 27017 );
+    	
+    	DB db1 = mongoClient.getDB("log_inventory_db");
+		DBCollection coll = db1.getCollection("user");
+		
+		DBCursor cursor = coll.find();
+		
+		return cursor;
+	}
 
 }
