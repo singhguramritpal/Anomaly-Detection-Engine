@@ -287,7 +287,7 @@ public class DetectionController {
 	public List<DBObject> userActivity(@RequestParam(value="user", defaultValue="workstation") String user) throws UnknownHostException{
 
 		DBCursor cursor = new DBConnect().connectToAuth();
-		List<DBObject> list = new ArrayList<>();
+		List<DBObject> list = new ArrayList<DBObject>();
 		DBObject obj;
 
 		String pattern = "(.*)"+user+"(.*)";
@@ -305,7 +305,7 @@ public class DetectionController {
 	public List<DBObject> sourceIPActivity(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
 
 		DBCursor cursor = new DBConnect().connectToAuth();
-		List<DBObject> list = new ArrayList<>();
+		List<DBObject> list = new ArrayList<DBObject>();
 		DBObject obj;
 
 		while(cursor.hasNext()){
@@ -322,7 +322,7 @@ public class DetectionController {
 
 		DBCursor cursor = new DBConnect().connectToAuth();
 		String msg;
-		List<DBObject> list = new ArrayList<>();
+		List<DBObject> list = new ArrayList<DBObject>();
 		DBObject obj;
 
 		while(cursor.hasNext()){
@@ -338,7 +338,7 @@ public class DetectionController {
 	public List<DBObject> destNameActivity(@RequestParam(value="user", defaultValue="10.0.0.1") String destName) throws UnknownHostException{
 
 		DBCursor cursor = new DBConnect().connectToAuth();
-		List<DBObject> list = new ArrayList<>();
+		List<DBObject> list = new ArrayList<DBObject>();
 		DBObject obj;
 
 		String pattern = "(.*)"+destName+"(.*)";
