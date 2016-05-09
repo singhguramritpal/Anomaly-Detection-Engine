@@ -16,8 +16,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +30,7 @@ import com.mongodb.DBObject;
 import com.resources.User;
 
 @RestController
+@CrossOrigin(origins="*")
 public class DetectionController {
 
 
@@ -151,7 +151,7 @@ public class DetectionController {
 
 	@RequestMapping("/firewall/acceptedEvents")
 	public HashSet<HashMap<String,String>> acceptedEvents(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
-		
+
 		DBCursor cursor = new DBConnect().connectToFirewall();
 		HashSet<HashMap<String,String>> set = new HashSet<HashMap<String,String>>();
 		HashMap<String,String> map = new HashMap<String,String>();
@@ -166,7 +166,7 @@ public class DetectionController {
 				set.add(map);
 			}
 		}
-		
+
 		return set;
 	}
 
@@ -245,8 +245,8 @@ public class DetectionController {
 		list.add(1,remote);
 		return list;
 	}
-	
-	
+
+
 	//Auth Logs
 
 	@RequestMapping("/auth/remoteLogin")
@@ -372,7 +372,7 @@ public class DetectionController {
 				Pattern p = Pattern.compile(timePattern);
 				Matcher m = p.matcher(time);				
 				if(m.find()){
-					
+
 					String hostIP=obj.get("hostIP").toString();
 					if(!map.containsKey(hostIP)){
 						map.put(hostIP,new ArrayList<Integer>());
@@ -398,7 +398,7 @@ public class DetectionController {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping("/blockIP")
 	public String blockIP(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
 		new DBConnect().connectToBlockedIP(ip);
@@ -411,14 +411,14 @@ public class DetectionController {
 			conn.setRequestProperty("Content-Type", "application/json");
 
 			String input = data;			
-			
+
 			OutputStream os = conn.getOutputStream();
 			os.write(input.getBytes());
 			os.flush();
 
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
+						+ conn.getResponseCode());
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -432,54 +432,47 @@ public class DetectionController {
 
 			conn.disconnect();
 
-		  } catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {
 
 			e.printStackTrace();
 
-		  } catch (IOException e) {
+		} catch (IOException e) {
 
 			e.printStackTrace();
 
-		 }
-		
+		}
+
 		return ip+" blocked";
 	}
-	
+
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
-    @ResponseBody
-    public HashMap<String,String> registerUser(@RequestBody User user) throws UnknownHostException{
-    	
+	@ResponseBody
+	public HashMap<String,String> registerUser(@RequestBody User user) throws UnknownHostException{
+
 		System.out.println(user.toString());
-<<<<<<< HEAD
-    	HashMap<String,String> map = new HashMap<String,String>();
-=======
-    	HashMap<String,String> map = new HashMap<String, String>();
->>>>>>> 4e6eb90fd82f6effebf55067061ece4943ce6521
-    	map.put("name", user.getName());
-    	map.put("email", user.getEmail().toString());
-    	map.put("phoneNumber", user.getPhoneNumber());
-    	map.put("organizationName", user.getOrganizationName());
-    	map.put("password", user.getPassword());
-    	
-    	DBConnect dbc = new DBConnect();
-    	
-    	dbc.connectToUser(map);
-    	
-    	System.out.println(map);
-    	
-    	return map;
-    }
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public HashMap<String, String> Login(@RequestBody User user) throws UnknownHostException {
-		
-		String userName=user.getEmail();
-		String password=user.getPassword();
-		
-		System.out.println(userName);
-
-
-		DBCursor cursor = new DBConnect().connectToUser();
 		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("name", user.getName());
+		map.put("email", user.getEmail().toString());
+		map.put("phoneNumber", user.getPhoneNumber());
+		map.put("organizationName", user.getOrganizationName());
+		map.put("password", user.getPassword());
+
+		DBConnect dbc = new DBConnect();
+
+		dbc.connectToUser(map);
+
+		System.out.println(map);
+
+		return map;
+	}
+	@RequestMapping("/login")
+	public HashMap<String, String> Login(@RequestParam Map<String,String> requestParams) throws UnknownHostException {
+
+		String userName=requestParams.get("email");
+		String password=requestParams.get("password");
+
+		HashMap<String,String> map = new HashMap<String,String>();
+		DBCursor cursor = new DBConnect().connectToUser();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
 			if((obj.get("email").equals(userName)) && obj.get("password").equals(password)){
