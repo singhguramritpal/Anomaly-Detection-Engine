@@ -14,7 +14,7 @@ import com.mongodb.MongoClient;
 
 public class DBConnect {
 		
-		MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+		MongoClient mongoClient = new MongoClient( "52.36.17.56" , 27017 );
 		DB db = mongoClient.getDB("db");
 		DBCollection coll = db.getCollection("auth_events"); 
 		DBCursor cursor = coll.find();
@@ -28,10 +28,7 @@ public class DBConnect {
 		
 		int count1 = 0;
 		
-		public DBConnect(){
-			System.out.println("cursor counnt: "+cursor.count());
-			System.out.println("cursor counnt: "+cursor1.count());
-		};
+		
 		List<DBObject> auth_list;
 		List<DBObject> firewall_list;
 		
@@ -40,7 +37,7 @@ public class DBConnect {
 			
 			cursor = coll.find().skip(count);
 			
-			auth_list  = new ArrayList<>();
+			auth_list  = new ArrayList<DBObject>();
 			while(cursor.hasNext()){
 				auth_list.add(cursor.next());
 			}
@@ -52,7 +49,7 @@ public class DBConnect {
 		public List<DBObject> connectToFirewallEvents(){
 			
 			cursor1 = coll1.find().skip(count1);
-			firewall_list = new ArrayList<>();
+			firewall_list = new ArrayList<DBObject>();
 			while(cursor1.hasNext()){
 				firewall_list.add(cursor1.next());
 			}

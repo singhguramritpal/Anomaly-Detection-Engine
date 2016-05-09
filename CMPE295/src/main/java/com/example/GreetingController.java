@@ -39,7 +39,7 @@ public class GreetingController {
     	BasicDBObject query = new BasicDBObject();
     	    	
 		auth_data = dbc.connectToAuthEvents();
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<String>();
 		for(DBObject temp : auth_data){
 			
 			BasicDBObject ip = new BasicDBObject();
