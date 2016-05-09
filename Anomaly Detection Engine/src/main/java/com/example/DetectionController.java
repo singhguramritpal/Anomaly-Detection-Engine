@@ -450,12 +450,37 @@ public class DetectionController {
 	public HashMap<String,String> registerUser(@RequestBody User user) throws UnknownHostException{
 
 		System.out.println(user.toString());
+<<<<<<< HEAD
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("name", user.getName());
 		map.put("email", user.getEmail().toString());
 		map.put("phoneNumber", user.getPhoneNumber());
 		map.put("organizationName", user.getOrganizationName());
 		map.put("password", user.getPassword());
+=======
+    	HashMap<String,String> map = new HashMap<String,String>();
+    	map.put("name", user.getName());
+    	map.put("email", user.getEmail().toString());
+    	map.put("phoneNumber", user.getPhoneNumber());
+    	map.put("organizationName", user.getOrganizationName());
+    	map.put("password", user.getPassword());
+    	
+    	DBConnect dbc = new DBConnect();
+    	
+    	dbc.connectToUser(map);
+    	
+    	System.out.println(map);
+    	
+    	return map;
+    }
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public HashMap<String, String> Login(@RequestBody User user) throws UnknownHostException {
+		
+		String userName=user.getEmail();
+		String password=user.getPassword();
+		
+		System.out.println(userName);
+>>>>>>> f677d2123d6024a71aa2e144e26dfa24b0e0890d
 
 		DBConnect dbc = new DBConnect();
 
