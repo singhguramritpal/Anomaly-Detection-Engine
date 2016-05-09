@@ -403,7 +403,7 @@ public class DetectionController {
 	public String blockIP(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
 		new DBConnect().connectToBlockedIP(ip);
 		String data = "{\"deny\":\""+ip+"\"}";
-		try {
+		/*try {
 			URL url = new URL("http://localhost:8080/changeIPTable");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -440,7 +440,7 @@ public class DetectionController {
 
 			e.printStackTrace();
 
-		}
+		}*/
 
 		return ip+" blocked";
 	}
