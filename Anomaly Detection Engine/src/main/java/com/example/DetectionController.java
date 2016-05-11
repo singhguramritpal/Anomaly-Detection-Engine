@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.connection.DBConnect;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.resources.User;
@@ -41,10 +43,12 @@ public class DetectionController {
 	public HashMap<String,Integer> sourceIP(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException {
 
 		DBCursor cursor = new DBConnect().connectToFirewall();
-
+		System.out.println(cursor.count()
+				);
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
+			System.out.println(obj);
 			if((obj.get("sourceIP").equals(ip)) && obj.get("outcome").equals("Failure")){
 
 				if(!map.containsKey(obj.get("destIP").toString())){
@@ -71,7 +75,6 @@ public class DetectionController {
 
 		while(cursor.hasNext()){
 			DBObject obj = cursor.next();
-			System.out.println((obj.get("destIP").equals(ip)) && obj.get("outcome").equals("Failure"));
 			if((obj.get("destIP").equals(ip)) && obj.get("outcome").equals("Failure")){
 
 				if(!map.containsKey(obj.get("sourceIP").toString())){
@@ -266,7 +269,6 @@ public class DetectionController {
 				Pattern p = Pattern.compile(pattern);
 				Matcher m = p.matcher(msg);
 
-				System.out.println(msg);
 				if(msg.matches("(.*)accepted password(.*)")){
 					if(m.find( )){
 						String ip1 = m.group()+"";
@@ -401,9 +403,44 @@ public class DetectionController {
 
 	@RequestMapping("/blockIP")
 	public String blockIP(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
+<<<<<<< HEAD
+		DBCollection coll = new DBConnect().connectToBlockedIP();
+		
+		DBCursor cursor = coll.find();
+		boolean flag = true;
+		String ip1 = ip.replace('.', ' ');
+		while(cursor.hasNext()){
+			
+			DBObject obj = cursor.next();
+			
+			if(obj.containsKey(ip1)){
+				flag = false;
+				break;
+			}
+		}
+		if(flag){
+			
+			BasicDBObject document = new BasicDBObject();
+			String ip2=ip.replace('.', ' ');
+			document.put(ip2, "deny");
+			
+			coll.insert(document);
+			
+			return ip + " blocked";
+		}
+		else{
+			return ip +" already Blocked";
+		}
+		
+		
+		
+		/*try {		String data = "{\"deny\":\""+ip+"\"}";
+
+=======
 		new DBConnect().connectToBlockedIP(ip);
 		String data = "{\"deny\":\""+ip+"\"}";
 		/*try {
+>>>>>>> 96989c6cfc8c1f7beb223a7328bc2005a0585d9a
 			URL url = new URL("http://localhost:8080/changeIPTable");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -441,8 +478,11 @@ public class DetectionController {
 			e.printStackTrace();
 
 		}*/
+<<<<<<< HEAD
+=======
 
 		return ip+" blocked";
+>>>>>>> 96989c6cfc8c1f7beb223a7328bc2005a0585d9a
 	}
 
 	@RequestMapping(value="/signup", method = RequestMethod.POST)

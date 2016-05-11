@@ -32,17 +32,13 @@ public class DBConnect {
 		
 		return cursor;
 	}
-	public void connectToBlockedIP(String ip) throws UnknownHostException{
+	public DBCollection connectToBlockedIP() throws UnknownHostException{
 		MongoClient mongoClient = new MongoClient( "52.39.5.137" , 27017 );
     	
     	DB db1 = mongoClient.getDB("log_inventory_db");
 		DBCollection coll = db1.getCollection("blockedIP");
 		
-		BasicDBObject document = new BasicDBObject();
-		ip=ip.replace('.', ' ');
-		document.put(ip, "deny");
-		
-		coll.insert(document);
+		return coll;
 	}
 	
 	public void connectToUser(HashMap<String,String> map) throws UnknownHostException{
