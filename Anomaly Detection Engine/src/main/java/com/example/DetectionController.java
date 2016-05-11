@@ -431,58 +431,6 @@ public class DetectionController {
 		else{
 			return ip +" already Blocked";
 		}
-		
-		
-		
-		/*try {		String data = "{\"deny\":\""+ip+"\"}";
-
-=======
-		new DBConnect().connectToBlockedIP(ip);
-		String data = "{\"deny\":\""+ip+"\"}";
-		/*try {
->>>>>>> 96989c6cfc8c1f7beb223a7328bc2005a0585d9a
-			URL url = new URL("http://localhost:8080/changeIPTable");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/json");
-
-			String input = data;			
-
-			OutputStream os = conn.getOutputStream();
-			os.write(input.getBytes());
-			os.flush();
-
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
-			}
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					(conn.getInputStream())));
-
-			String output;
-			System.out.println("Output from Server .... \n");
-			while ((output = br.readLine()) != null) {
-				System.out.println(output);
-			}
-
-			conn.disconnect();
-
-		} catch (MalformedURLException e) {
-
-			e.printStackTrace();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		}*/
-<<<<<<< HEAD
-=======
-
-		return ip+" blocked";
->>>>>>> 96989c6cfc8c1f7beb223a7328bc2005a0585d9a
 	}
 
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
