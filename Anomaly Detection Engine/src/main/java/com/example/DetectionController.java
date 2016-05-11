@@ -403,7 +403,6 @@ public class DetectionController {
 
 	@RequestMapping("/blockIP")
 	public String blockIP(@RequestParam(value="ip", defaultValue="10.0.0.1") String ip) throws UnknownHostException{
-<<<<<<< HEAD
 		DBCollection coll = new DBConnect().connectToBlockedIP();
 		
 		DBCursor cursor = coll.find();
@@ -436,11 +435,6 @@ public class DetectionController {
 		
 		/*try {		String data = "{\"deny\":\""+ip+"\"}";
 
-=======
-		new DBConnect().connectToBlockedIP(ip);
-		String data = "{\"deny\":\""+ip+"\"}";
-		/*try {
->>>>>>> 96989c6cfc8c1f7beb223a7328bc2005a0585d9a
 			URL url = new URL("http://localhost:8080/changeIPTable");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
@@ -478,11 +472,6 @@ public class DetectionController {
 			e.printStackTrace();
 
 		}*/
-<<<<<<< HEAD
-=======
-
-		return ip+" blocked";
->>>>>>> 96989c6cfc8c1f7beb223a7328bc2005a0585d9a
 	}
 
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
